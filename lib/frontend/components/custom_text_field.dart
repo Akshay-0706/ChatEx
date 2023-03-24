@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
     TextEditingController controller = TextEditingController();
     return Container(
       decoration: BoxDecoration(
-          color: pallete.primary.withOpacity(0.1),
+          color: const Color(0xFF4969BB).withOpacity(0.1),
           borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: getHeight(10)),
@@ -50,6 +50,7 @@ class CustomTextField extends StatelessWidget {
             // for below version 2 use this
             if (isNum) FilteringTextInputFormatter.allow(RegExp(reg)),
           ],
+          cursorColor: pallete.primaryDark,
           cursorRadius: const Radius.circular(8),
           decoration: InputDecoration(
             border: InputBorder.none,

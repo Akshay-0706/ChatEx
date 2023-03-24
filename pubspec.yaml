@@ -40,7 +40,7 @@ dependencies:
   intl: ^0.18.0
   flutter_svg: ^1.1.1+1
   drop_shadow: ^0.0.1+4
-  share_plus: ^6.2.0
+  share_plus: ^6.3.1
   permission_handler: ^10.2.0
   animated_text_kit: ^4.2.2
   cached_network_image: ^3.2.2

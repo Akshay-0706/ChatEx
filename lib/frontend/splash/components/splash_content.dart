@@ -18,8 +18,8 @@ class SplashContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: getWidth(160),
-          height: getWidth(160),
+          width: getWidth(100),
+          height: getWidth(100),
           child: LottieBuilder.asset(
             themeChanger.isDarkMode
                 ? "assets/extras/lottie_logo_dark.json"

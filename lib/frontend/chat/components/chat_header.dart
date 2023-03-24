@@ -1,4 +1,4 @@
-import 'package:chatex/backend/database/contacts.dart';
+import 'package:chatex/backend/database/users.dart';
 import 'package:chatex/size.dart';
 import 'package:chatex/theme.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class ChatHeader extends StatelessWidget {
     required this.pallete,
   }) : super(key: key);
 
-  final Users contact;
+  final User contact;
   final Pallete pallete;
 
   @override
@@ -34,11 +34,10 @@ class ChatHeader extends StatelessWidget {
             ),
           ),
           SizedBox(width: getWidth(10)),
-          if (contact.photoUrl.isEmpty)
-            SvgPicture.asset(
-              "assets/icons/avatar.svg",
-              width: getWidth(40),
-            ),
+          SvgPicture.asset(
+            "assets/icons/avatar.svg",
+            width: getWidth(40),
+          ),
           SizedBox(width: getWidth(10)),
           Text(
             contact.name,

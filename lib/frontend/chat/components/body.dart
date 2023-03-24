@@ -1,4 +1,7 @@
-import 'package:chatex/backend/database/contacts.dart';
+import 'dart:async';
+
+import 'package:chatex/backend/api/api.dart';
+import 'package:chatex/backend/database/users.dart';
 import 'package:chatex/backend/database/message.dart';
 import 'package:chatex/size.dart';
 import 'package:chatex/theme.dart';
@@ -10,7 +13,7 @@ import 'chat_header.dart';
 
 class ChatBody extends StatefulWidget {
   const ChatBody({super.key, required this.contact});
-  final Users contact;
+  final User contact;
 
   @override
   State<ChatBody> createState() => _ChatBodyState();
@@ -21,52 +24,56 @@ class _ChatBodyState extends State<ChatBody> {
 
   late TextEditingController controller;
   late ScrollController scrollController;
+  late Timer timer;
 
-  final List<Message> chats = [
-    Message("Hello bro", DateTime.now(), 4534759),
-    Message("Hello bro", DateTime.now(), 4534759),
-    Message("Hello bro", DateTime.now(), 4534759),
-    Message("Hi there", DateTime.now(), 7715940266),
-    Message("Hi there", DateTime.now(), 7715940266),
-    Message("Hi there", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-    Message("Hello!", DateTime.now(), 4534759),
-    Message("Good morning", DateTime.now(), 7715940266),
-  ];
+  List<Message> chats = [];
+
+  void getMessages() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      print("Getting messages...");
+      Api.getMessages((widget.contact.number + box.read("number")).toString())
+          .then((value) {
+        setState(() {
+          chats = value;
+        });
+      });
+    });
+  }
 
   @override
   void initState() {
     controller = TextEditingController();
     scrollController = ScrollController();
+    Api.getMessages((widget.contact.number + box.read("number")).toString())
+        .then((value) {
+      setState(() {
+        chats = value;
+      });
+    });
+    getMessages();
     super.initState();
   }
 
-  void addMessage(String message, bool fromMe) {
+  void sendMessage(String message) {
+    print(DateTime.now());
+    DateTime current = DateTime.now();
+    int number = box.read("number");
     setState(() {
-      chats.add(Message(message, DateTime.now(),
-          fromMe ? box.read("number") : widget.contact.number));
-      scrollController.animateTo(scrollController.position.maxScrollExtent,
-          duration: const Duration(seconds: 2), curve: Curves.fastOutSlowIn);
+      chats.add(Message(message, current, number));
+      Future.delayed(
+          const Duration(milliseconds: 200),
+          () => scrollController.animateTo(
+              scrollController.position.maxScrollExtent,
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn));
     });
+    Api.sendMessage(message, current.toString(), number.toString(),
+        (widget.contact.number + number).toString());
   }
 
   @override
   void dispose() {
+    timer.cancel();
     controller.dispose();
     scrollController.dispose();
     super.dispose();
@@ -75,6 +82,12 @@ class _ChatBodyState extends State<ChatBody> {
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
+    Future.delayed(
+        const Duration(milliseconds: 200),
+        () => scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(seconds: 1),
+            curve: Curves.fastOutSlowIn));
     String message = "";
     return SafeArea(
       child: Column(
@@ -131,7 +144,7 @@ class _ChatBodyState extends State<ChatBody> {
                     GestureDetector(
                       onTap: () {
                         if (message.isNotEmpty) {
-                          addMessage(message, true);
+                          sendMessage(message);
                           controller.text = "";
                         }
                       },

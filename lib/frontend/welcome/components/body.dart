@@ -1,4 +1,6 @@
+import 'package:chatex/backend/api/api.dart';
 import 'package:chatex/frontend/components/custom_text_field.dart';
+import 'package:chatex/global.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
@@ -14,20 +16,12 @@ class WelcomeBody extends StatefulWidget {
 }
 
 class _WelcomeBodyState extends State<WelcomeBody> {
-  // Future<SharedPreferences> sharedPreferences = SharedPreferences.getInstance();
-  // late SharedPreferences pref;
   final box = GetStorage();
   bool signedIn = false, signin = false;
 
   @override
   void initState() {
     signedIn = box.read('signedIn') ?? false;
-    // sharedPreferences.then((value) {
-    //   pref = value;
-    //   setState(() {
-    //     prefIsReady = true;
-    //   });
-    // });
     super.initState();
   }
 
@@ -115,8 +109,12 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           if (!signin)
             PrimaryBtn(
               title: "Continue",
-              primaryColor: Theme.of(context).primaryColor,
-              secondaryColor: Theme.of(context).primaryColor.withOpacity(0.8),
+              primaryColor: themeChanger.isDarkMode
+                  ? const Color(0xFF33436D)
+                  : const Color(0xFF516DB6),
+              secondaryColor: themeChanger.isDarkMode
+                  ? const Color(0xFF40558F).withOpacity(0.8)
+                  : const Color(0xFF5470BE).withOpacity(0.8),
               titleColor: Colors.white,
               padding: getWidth(20),
               hasIcon: false,

@@ -1,4 +1,4 @@
-import 'package:chatex/backend/database/contacts.dart';
+import 'package:chatex/backend/database/users.dart';
 import 'package:chatex/frontend/chat/chat.dart';
 import 'package:chatex/frontend/components/custom_page_route.dart';
 import 'package:chatex/size.dart';
@@ -14,7 +14,7 @@ class ContactCard extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  final List<Users> contacts;
+  final List<User> contacts;
   final Pallete pallete;
   final int index;
 
@@ -39,16 +39,15 @@ class ContactCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    if (contacts[index].photoUrl.isEmpty)
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: pallete.primaryDark)),
-                        child: SvgPicture.asset(
-                          "assets/icons/avatar.svg",
-                          width: getWidth(45),
-                        ),
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: pallete.primaryDark)),
+                      child: SvgPicture.asset(
+                        "assets/icons/avatar.svg",
+                        width: getWidth(45),
                       ),
+                    ),
                     SizedBox(width: getWidth(10)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
