@@ -1,4 +1,4 @@
-package com.official.chatex.chatex
+package com.official.chatex
 
 import io.flutter.embedding.android.FlutterActivity
 

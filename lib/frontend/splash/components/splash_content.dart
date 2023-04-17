@@ -32,7 +32,7 @@ class SplashContent extends StatelessWidget {
           repeatForever: true,
           animatedTexts: [
             FlickerAnimatedText(
-              "chatEx",
+              "ChatEx",
               speed: const Duration(milliseconds: 1500),
               textStyle: TextStyle(
                 color: Theme.of(context).primaryColorDark,

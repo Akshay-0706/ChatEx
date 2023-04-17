@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.official.chatex.chatex">
+    package="com.official.chatex">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
    <application
-        android:label="chatEx"
+        android:label="ChatEx"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

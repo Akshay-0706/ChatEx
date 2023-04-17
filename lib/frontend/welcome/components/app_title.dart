@@ -16,7 +16,7 @@ class AppTitle extends StatelessWidget {
         SvgPicture.asset("assets/icons/logo.svg"),
         SizedBox(width: getWidth(10)),
         Text(
-          "chatEx",
+          "ChatEx",
           style: TextStyle(
             color: Theme.of(context).primaryColorDark,
             fontSize: getWidth(24),

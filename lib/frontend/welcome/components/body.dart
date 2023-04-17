@@ -49,7 +49,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
             child: SizedBox(
               width: getWidth(220),
               child: Text(
-                "Welcome to chatEx!",
+                "Welcome to ChatEx!",
                 style: TextStyle(
                   color: Theme.of(context).primaryColorDark,
                   fontSize: getWidth(22),

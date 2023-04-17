@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'chatEx',
+      title: 'ChatEx',
       theme: AppTheme.lightTheme(),
       darkTheme: AppTheme.darkTheme(),
       routes: routes,

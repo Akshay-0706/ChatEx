@@ -8,8 +8,7 @@ import 'package:http/http.dart' as http;
 
 class Api {
   static Future<List<User>> registerUser(String num) async {
-    final response =
-        await http.get(Uri.parse("${Global.link}/register/$num"));
+    final response = await http.get(Uri.parse("${Global.link}/register/$num"));
 
     if (response.statusCode == 200) {
       if (response.body.toString() == "True") {
@@ -23,10 +22,10 @@ class Api {
     }
   }
 
-  static Future<String> addContact(
-      String current, String name, String number, String sumOfNums) async {
+  static Future<String> addContact(String current, String currentName,
+      String name, String number, String sumOfNums) async {
     final response = await http.get(Uri.parse(
-        "${Global.link}/addcontact/$current/$name/$number/$sumOfNums"));
+        "${Global.link}/addcontact/$current/$currentName/$name/$number/$sumOfNums"));
 
     if (response.statusCode == 200) {
       return response.body;
@@ -50,8 +49,8 @@ class Api {
   }
 
   static Future<List<Message>> getMessages(String sumOfNums) async {
-    final response = await http
-        .get(Uri.parse("${Global.link}/receivemessages/$sumOfNums"));
+    final response =
+        await http.get(Uri.parse("${Global.link}/receivemessages/$sumOfNums"));
 
     if (response.statusCode == 200) {
       return Converter.toMessages(jsonDecode(response.body));

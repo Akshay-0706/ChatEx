@@ -52,8 +52,8 @@ class _HomeBodyState extends State<HomeBody> {
 
   void checkIfUserExists(String name, int number) async {
     int current = box.read("number");
-    String exists = await Api.addContact(current.toString(), name,
-        number.toString(), (current + number).toString());
+    String exists = await Api.addContact(current.toString(), box.read("name"),
+        name, number.toString(), (current + number).toString());
     if (exists == "True") {
       print("Exists");
       setState(() {
@@ -111,7 +111,7 @@ class _HomeBodyState extends State<HomeBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "It looks like $name has not registered with chatEx yet,",
+              "It looks like $name has not registered with ChatEx yet,",
               style: TextStyle(
                 color: pallete.primaryDark,
                 fontSize: getHeight(14),
@@ -156,7 +156,7 @@ class _HomeBodyState extends State<HomeBody> {
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        Share.share("Check out chatEx app now!",
+                        Share.share("Check out ChatEx app now!",
                             subject: "Look what I found!");
                       },
                       borderRadius: BorderRadius.circular(getWidth(8)),
@@ -276,7 +276,7 @@ class _HomeBodyState extends State<HomeBody> {
                           ),
                         ),
                       ),
-                      SizedBox(height: getHeight(10)),
+                      SizedBox(height: getHeight(14)),
                     ],
                   ),
                 ),
