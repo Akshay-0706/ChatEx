@@ -25,7 +25,7 @@ class ContactCard extends StatelessWidget {
         if (index == 0) SizedBox(height: getHeight(20)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
-          child: InkWell(
+          child: GestureDetector(
             onTap: () {
               Navigator.push(context,
                   CustomPageRoute(context, Chat(contact: contacts[index])));
@@ -33,10 +33,10 @@ class ContactCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: pallete.background,
-                borderRadius: BorderRadius.circular(getWidth(20)),
+                borderRadius: BorderRadius.circular(getWidth(10)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   children: [
                     Container(
@@ -45,7 +45,7 @@ class ContactCard extends StatelessWidget {
                           border: Border.all(color: pallete.primaryDark)),
                       child: SvgPicture.asset(
                         "assets/icons/avatar.svg",
-                        width: getWidth(45),
+                        width: getWidth(40),
                       ),
                     ),
                     SizedBox(width: getWidth(10)),
@@ -56,7 +56,7 @@ class ContactCard extends StatelessWidget {
                           contacts[index].name,
                           style: TextStyle(
                             color: pallete.primaryDark,
-                            fontSize: getHeight(18),
+                            fontSize: getHeight(16),
                           ),
                         ),
                         Text(

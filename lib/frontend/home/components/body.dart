@@ -251,7 +251,7 @@ class _HomeBodyState extends State<HomeBody> {
                   itemBuilder: (context, index) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           String num = contacts[index].value!;
                           num = num.replaceAll(" ", "");
@@ -268,11 +268,22 @@ class _HomeBodyState extends State<HomeBody> {
                           }
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          contacts[index].value!,
-                          style: TextStyle(
-                            color: pallete.primaryDark,
-                            fontSize: getHeight(14),
+                        borderRadius: BorderRadius.circular(4),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFF32426B)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            child: Text(
+                              contacts[index].value!,
+                              style: TextStyle(
+                                color: pallete.primaryDark,
+                                fontSize: getHeight(14),
+                              ),
+                            ),
                           ),
                         ),
                       ),

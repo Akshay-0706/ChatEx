@@ -53,6 +53,7 @@ class Api {
         await http.get(Uri.parse("${Global.link}/receivemessages/$sumOfNums"));
 
     if (response.statusCode == 200) {
+      if (response.body == "Failed") return [];
       return Converter.toMessages(jsonDecode(response.body));
     } else {
       throw Exception(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Global {
-  static String link = "http://34.121.239.68:3000";
-  static double drawerOffset = 0.6;
-  static Duration drawerDuration = const Duration(milliseconds: 300);
+  static String link = "http://34.30.65.182:3000";
   static bool themeIsDark = true;
 
   static List<Color> colors = [

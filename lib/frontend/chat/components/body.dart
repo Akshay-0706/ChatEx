@@ -25,6 +25,7 @@ class _ChatBodyState extends State<ChatBody> {
   late TextEditingController controller;
   late ScrollController scrollController;
   late Timer timer;
+  String message = "";
 
   List<Message> chats = [];
 
@@ -33,9 +34,18 @@ class _ChatBodyState extends State<ChatBody> {
       print("Getting messages...");
       Api.getMessages((widget.contact.number + box.read("number")).toString())
           .then((value) {
-        setState(() {
-          chats = value;
-        });
+        if (mounted && value.length != chats.length) {
+          setState(() {
+            chats = value;
+          });
+          Future.delayed(
+            const Duration(milliseconds: 200),
+            () => scrollController.animateTo(
+                scrollController.position.maxScrollExtent,
+                duration: const Duration(seconds: 1),
+                curve: Curves.fastOutSlowIn),
+          );
+        }
       });
     });
   }
@@ -46,9 +56,11 @@ class _ChatBodyState extends State<ChatBody> {
     scrollController = ScrollController();
     Api.getMessages((widget.contact.number + box.read("number")).toString())
         .then((value) {
-      setState(() {
-        chats = value;
-      });
+      if (mounted) {
+        setState(() {
+          chats = value;
+        });
+      }
     });
     getMessages();
     super.initState();
@@ -58,15 +70,15 @@ class _ChatBodyState extends State<ChatBody> {
     print(DateTime.now());
     DateTime current = DateTime.now();
     int number = box.read("number");
-    setState(() {
-      chats.add(Message(message, current, number));
-      Future.delayed(
-          const Duration(milliseconds: 200),
-          () => scrollController.animateTo(
-              scrollController.position.maxScrollExtent,
-              duration: const Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn));
-    });
+    // setState(() {
+    //   chats.add(Message(message, current, number));
+    //   Future.delayed(
+    //       const Duration(milliseconds: 200),
+    //       () => scrollController.animateTo(
+    //           scrollController.position.maxScrollExtent,
+    //           duration: const Duration(seconds: 1),
+    //           curve: Curves.fastOutSlowIn));
+    // });
     Api.sendMessage(message, current.toString(), number.toString(),
         (widget.contact.number + number).toString());
   }
@@ -82,13 +94,7 @@ class _ChatBodyState extends State<ChatBody> {
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
-    Future.delayed(
-        const Duration(milliseconds: 200),
-        () => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn));
-    String message = "";
+
     return SafeArea(
       child: Column(
         children: [
@@ -126,6 +132,7 @@ class _ChatBodyState extends State<ChatBody> {
                         style: TextStyle(color: pallete.primaryDark),
                         onChanged: (value) {
                           message = value;
+                          print(message);
                         },
                         cursorColor: pallete.primaryDark,
                         cursorRadius: const Radius.circular(8),
@@ -143,6 +150,7 @@ class _ChatBodyState extends State<ChatBody> {
                     SizedBox(width: getWidth(10)),
                     GestureDetector(
                       onTap: () {
+                        print(message);
                         if (message.isNotEmpty) {
                           sendMessage(message);
                           controller.text = "";
